@@ -12,17 +12,19 @@ void FreeCamera::Init()
 
 void FreeCamera::Thread()
 {
+	uintptr_t CordsInstruction = SigScan("89 ? 49 89 ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? 8B ? ? 89 ? ? F2");
+	Camera* cam = GetCamera();
+
 	while (true)
 	{
-		Camera* cam = GetCamera();
 		if (GetAsyncKeyState(SettingsMgr->iFreeCameraEnableKey) & 0x1)
 			ms_bEnabled += 1;
 
 		if (ms_bEnabled == 1)
 		{
-			Nop(_addr(0x11E93F9), 2);
-			Nop(_addr(0x11E9401), 3);
-			Nop(_addr(0x11E9407), 3);
+			Nop(CordsInstruction, 2);
+			Nop(CordsInstruction + 8, 3);
+			Nop(CordsInstruction + 14, 3);
 			ms_bEnabled = 2;
 		}
 		else if (ms_bEnabled == 2)
@@ -58,9 +60,9 @@ void FreeCamera::Thread()
 		}
 		else if (ms_bEnabled == 3)
 		{
-			Patch(_addr(0x11E93F9), {0x89, 0x01});
-			Patch(_addr(0x11E9401), {0x89, 0x41, 0x04});
-			Patch(_addr(0x11E9407), {0x89, 0x41, 0x08});
+			Patch(CordsInstruction, {0x89, 0x01});
+			Patch(CordsInstruction + 8, {0x89, 0x41, 0x04});
+			Patch(CordsInstruction + 14, {0x89, 0x41, 0x08});
 			ms_bEnabled = 0;
 		}
 
