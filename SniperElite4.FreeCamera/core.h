@@ -3,6 +3,5 @@
 
 using namespace Memory::VP;
 
-
-int GetEntryPoint();
-int _addr(int addr);
+uintptr_t GetEntryPoint();
+uintptr_t _addr(uintptr_t addr);

@@ -3,5 +3,5 @@
 #include "..\core.h"
 Camera* GetCamera()
 {
-	return *(Camera**)(_addr(0xFDF124));
+	return *(Camera**)(_addr(0xA75560));
 }
