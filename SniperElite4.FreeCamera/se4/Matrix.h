@@ -3,8 +3,9 @@
 
 class Matrix {
 public:
-	char pad[84];
 	Vector forward;
+	Vector up;
+	Vector right;
 
 	Vector GetForward();
 	Vector GetUp();

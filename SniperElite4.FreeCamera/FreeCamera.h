@@ -2,7 +2,8 @@
 
 class FreeCamera {
 public:
-	static bool ms_bEnabled;
+	static unsigned int ms_bEnabled;
+
 	static void Init();
 	static void Thread();
 
